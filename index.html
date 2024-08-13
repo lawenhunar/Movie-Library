@@ -24,14 +24,21 @@
                     margin-left: 30px;
                     color: #dff3ff;
                 }
-                .movie-container{
-                    display: flex;
+                .container {
+                    display: ruby;
+                    gap: 5px;
+                }
+                .box {
+                    padding: 20px;
+                    text-align: center;
                 }
             </style>
         <link rel="stylesheet" href="style.css">
         <title>Movie Library</title>
     </head>
-    <body>
+    <!-- take this out of body but maybe make a bigger div for everything except title to fit here
+     as everything should have some margin on both left and right -->
+    <body style="margin-left: 5%; margin-right: 5%;">
 
         <div
             style="background-color: #87CEFA; border-radius: 0px 0px 20px 20px;">
@@ -42,9 +49,20 @@
             </div>
             <hr style="border-top: 5px solid #DDA0DD ;opacity: 0%;" />
         </div>
+        <h5>Movies:</h5>
+        <div class="container">
+            
+            <div class="card text-center mb-3 box"
+                style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Special title treatment</h5>
+                    <p class="card-text">With supporting text below as a natural
+                        lead-in to additional content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
 
-        <div style="display: grid;">
-            <div class="card text-center mb-3 movie-container"
+            <div class="card text-center mb-3 box"
                 style="width: 18rem;">
                 <div class="card-body">
                     <h5 class="card-title">Special title treatment</h5>
@@ -53,7 +71,8 @@
                     <a href="#" class="btn btn-primary">Go somewhere</a>
                 </div>
             </div>
-            <div class="card text-center mb-3 movie-container"
+
+            <div class="card text-center mb-3 box"
                 style="width: 18rem;">
                 <div class="card-body">
                     <h5 class="card-title">Special title treatment</h5>
@@ -62,6 +81,48 @@
                     <a href="#" class="btn btn-primary">Go somewhere</a>
                 </div>
             </div>
+
+            <div class="card text-center mb-3 box"
+                style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Special title treatment</h5>
+                    <p class="card-text">With supporting text below as a natural
+                        lead-in to additional content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+
+            <div class="card text-center mb-3 box"
+                style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Special title treatment</h5>
+                    <p class="card-text">With supporting text below as a natural
+                        lead-in to additional content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+
+            <div class="card text-center mb-3 box"
+                style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Special title treatment</h5>
+                    <p class="card-text">With supporting text below as a natural
+                        lead-in to additional content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+
+            <div class="card text-center mb-3 box"
+                style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Special title treatment</h5>
+                    <p class="card-text">With supporting text below as a natural
+                        lead-in to additional content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+
+
         </div>
         </div>
     </body>
