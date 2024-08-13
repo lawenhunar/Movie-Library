@@ -10,20 +10,59 @@
             crossorigin="anonymous">
         <style>
                 body{
-                    background-color: #FFE4C4;
-                    margin-top: 10px;
+                    background-color: #F0FFFF;
+                    margin-bottom: 10px;
                 }
                 .text-main{
-                    color: #8B4513;
+                    color: #2F4F4F;
+                }
+                .in-one-line-nav{
+                    display: flex;
+                    margin-left: 80%;
+                }
+                .nav-tabs{
+                    margin-left: 30px;
+                    color: #dff3ff;
+                }
+                .movie-container{
+                    display: flex;
                 }
             </style>
         <link rel="stylesheet" href="style.css">
         <title>Movie Library</title>
     </head>
     <body>
-        <h1 class="text-main">Movie Matrix</h1>
-        
-        <hr style="border-top: 5px solid #c2671d"/>
 
+        <div
+            style="background-color: #87CEFA; border-radius: 0px 0px 20px 20px;">
+            <h1 class="text-main">Movie Matrix</h1>
+            <div class="in-one-line-nav">
+                <h3 class="nav-tabs">Home</h3>
+                <h3 class="nav-tabs">Add Blog</h3>
+            </div>
+            <hr style="border-top: 5px solid #DDA0DD ;opacity: 0%;" />
+        </div>
+
+        <div style="display: grid;">
+            <div class="card text-center mb-3 movie-container"
+                style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Special title treatment</h5>
+                    <p class="card-text">With supporting text below as a natural
+                        lead-in to additional content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+            <div class="card text-center mb-3 movie-container"
+                style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Special title treatment</h5>
+                    <p class="card-text">With supporting text below as a natural
+                        lead-in to additional content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+        </div>
+        </div>
     </body>
 </html>
