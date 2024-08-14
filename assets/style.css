@@ -1,0 +1,18 @@
+body{
+    background-color: #F0FFFF;
+    margin-bottom: 10px;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+.text-main{
+    color: #2F4F4F;
+    margin-left: 3%;
+}
+.container {
+    display: ruby;
+    gap: 5px;
+}
+.box {
+    padding: 20px;
+    text-align: center;
+}

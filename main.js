@@ -15,6 +15,9 @@ app.get('/',(req,res)=>{
     res.sendFile(path.join(__dirname,'index.html'))
 })
 
+app.get('/add-blog',(req,res)=>{
+    res.sendFile(path.join(__dirname,'add-blog.html'))
+})
 
 
 
@@ -22,3 +25,5 @@ app.get('/',(req,res)=>{
 app.listen(port,()=>{
     console.log(`port listening on port ${port}`)
 })
+
+app.use("/assets", express.static(__dirname + "/assets"));

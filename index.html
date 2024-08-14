@@ -8,46 +8,35 @@
             rel="stylesheet"
             integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
             crossorigin="anonymous">
-        <style>
-                body{
-                    background-color: #F0FFFF;
-                    margin-bottom: 10px;
-                }
-                .text-main{
-                    color: #2F4F4F;
-                }
-                .in-one-line-nav{
-                    display: flex;
-                    margin-left: 80%;
-                }
-                .nav-tabs{
-                    margin-left: 30px;
-                    color: #dff3ff;
-                }
-                .container {
-                    display: ruby;
-                    gap: 5px;
-                }
-                .box {
-                    padding: 20px;
-                    text-align: center;
-                }
-            </style>
-        <link rel="stylesheet" href="style.css">
+
+        <link rel="stylesheet" href="assets/style.css">
         <title>Movie Library</title>
     </head>
-    <!-- take this out of body but maybe make a bigger div for everything except title to fit here
-     as everything should have some margin on both left and right -->
-    <body style="margin-left: 5%; margin-right: 5%;">
 
+    <body>
         <div
             style="background-color: #87CEFA; border-radius: 0px 0px 20px 20px;">
             <h1 class="text-main">Movie Matrix</h1>
-            <div class="in-one-line-nav">
-                <h3 class="nav-tabs">Home</h3>
-                <h3 class="nav-tabs">Add Blog</h3>
-            </div>
-            <hr style="border-top: 5px solid #DDA0DD ;opacity: 0%;" />
+            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                <div class="container-fluid">
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link disabled" aria-disabled="true">Home</a>
+                          </li>
+                      <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="add-blog">Add Blog</a>
+                      </li>
+                    </ul>
+                    <form class="d-flex" role="search">
+                      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                      <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                  </div>
+                </div>
+              </nav>
+            <hr style="border-top: 5px solid #DDA0DD ;opacity: 100%; border-radius: 20px; margin-left: 5%;
+            margin-right: 5%;" />
         </div>
         <h5>Movies:</h5>
         <div class="container">
