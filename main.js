@@ -15,11 +15,14 @@ app.get('/',(req,res)=>{
     res.sendFile(path.join(__dirname,'index.html'))
 })
 
-app.get('/add-blog',(req,res)=>{
-    res.sendFile(path.join(__dirname,'add-blog.html'))
+app.get('/add-movie',(req,res)=>{
+    res.sendFile(path.join(__dirname,'add-movie.html'))
 })
 
-
+app.post('/movies',(req,res)=>{
+    console.log(req.body);
+    res.send("gaisht")
+})
 
 
 app.listen(port,()=>{

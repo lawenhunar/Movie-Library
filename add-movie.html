@@ -27,7 +27,7 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link disabled" aria-current="page"
-                                    aria-disabled="true">Add Blog</a>
+                                    aria-disabled="true">Add Movie</a>
                             </li>
                         </ul>
                         <form class="d-flex" role="search">
@@ -44,5 +44,36 @@
             margin-right: 5%;" />
         </div>
         <h4>Add Movie Details:</h4>
+        <form>
+            <div class="mb-3">
+                <label for="TitleField" class="form-label">Movie
+                    Title:</label>
+                <input type="text" class="form-control"
+                    id="TitleField">
+
+                <label for="DescriptionField"
+                    class="form-label">Description:</label>
+                <textarea class="form-control"
+                    id="DescriptionField" rows="3"></textarea>
+
+                <label for="ReleaseYearField"
+                    class="form-label">Released on:</label>
+                <input type="number" class="form-control"
+                    id="ReleaseYearField">
+
+                <label for="GenreField"
+                    class="form-label">Genre:</label>
+                <input type="text" class="form-control"
+                    id="GenreField">
+
+                <label for="DirectorsField"
+                    class="form-label">Directors:</label>
+                <input type="text" class="form-control"
+                    id="DirectorsField">
+
+            </div>
+            <button type="submit" class="btn btn-primary">Add to
+                library</button>
+        </form>
     </body>
 </html>
