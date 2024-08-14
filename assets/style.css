@@ -10,7 +10,7 @@ body{
 }
 .container {
     display: ruby;
-    gap: 5px;
+    /* gap: 5px; */
 }
 .box {
     padding: 20px;

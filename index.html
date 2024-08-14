@@ -40,6 +40,9 @@
         </div>
         <h5>Movies:</h5>
         <div class="container">
+
+            <div id="posts"> </div>
+
             
             <div class="card text-center mb-3 box"
                 style="width: 18rem;">
@@ -114,5 +117,31 @@
 
         </div>
         </div>
+
+        <script>
+            addEventListener("load",(event)=>{
+                show()
+            })
+
+            async function show(){
+                const response=await fetch('http://localhost:5000/movies')
+                const movies= await response.json()
+                console.log(movies)
+
+                for(const movie of movies){
+                    document.querySelector('#posts').innerHTML+=` 
+                    <div class="card text-center mb-3 box"
+                        style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">${movie.Title}</h5>
+                            <p class="card-text">${movie.Description}</p>
+                            <a href="#" class="btn btn-primary">Movie details</a>
+                        </div>
+                    </div>
+                    `
+                }
+            }
+
+        </script>
     </body>
 </html>
