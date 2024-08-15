@@ -72,8 +72,33 @@
                     id="DirectorsField">
 
             </div>
-            <button type="submit" class="btn btn-primary">Add to
+            <button onclick="add()" type="submit" class="btn btn-primary">Add to
                 library</button>
         </form>
+
+        <script>
+            async function add(){
+                const title=document.querySelector('#TitleField').value; 
+                const description=document.querySelector('#DescriptionField').value;
+                const releaseYear=document.querySelector('#ReleaseYearField').value;
+                const genre=document.querySelector('#GenreField').value;
+                const directors=document.querySelector('#DirectorsField').value;
+
+                console.log(title)
+                console.log(directors)
+
+                const response=await fetch('http://localhost:5000/movies',{
+                    method:'POST',
+                    headers:{'content-type':'application/json'},
+                    body:JSON.stringify( {
+                        "Title": title,
+                        "Description": description,
+                        "ReleaseYear": releaseYear,
+                        "Genre": genre,
+                        "Directors": directors
+                    })
+                })
+            }
+        </script>
     </body>
 </html>
