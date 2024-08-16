@@ -13,19 +13,13 @@ db.run(
     );
 
     CREATE TABLE Actors (
-        ActorID INTEGER PRIMARY KEY AUTOINCREMENT,
-        Name TEXT NOT NULL,
-        Age INTEGER,
-        Country TEXT
-    );
-
-    CREATE TABLE MovieActors (
-        MovieID INTEGER,
-        ActorID INTEGER,
-        PRIMARY KEY (MovieID, ActorID),
-        FOREIGN KEY (MovieID) REFERENCES Movies(MovieID),
-        FOREIGN KEY (ActorID) REFERENCES Actors(ActorID)
-    );
+    ActorID INTEGER PRIMARY KEY AUTOINCREMENT,
+    Name TEXT,
+    Age INTEGER,
+    Country TEXT,
+    MovieID INTEGER,
+    FOREIGN KEY (MovieID) REFERENCES Movies(MovieID)
+);
 
     CREATE TABLE Comments (
         CommentID INTEGER PRIMARY KEY AUTOINCREMENT,

@@ -77,6 +77,10 @@ app.get('/add-movie',(req,res)=>{
     res.sendFile(path.join(__dirname,'add-movie.html'))
 })
 
+app.get('/movies/:id/add-actor',(req,res)=>{
+    res.sendFile(path.join(__dirname,'add-actor.html'))
+})
+
 app.get('/movies/:id', (req, res) => {
     res.sendFile(path.join(__dirname,'movie-details.html'))
 });

@@ -1,0 +1,70 @@
+<!-- add-actor.html -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Add Actor</title>
+    </head>
+    <body>
+        <h1>Add Actor to Movie</h1>
+        <form id="addActorForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required><br><br>
+
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" required><br><br>
+
+            <label for="country">Country of Origin:</label>
+            <input type="text" id="country" name="country" required><br><br>
+
+            <input type="hidden" id="movieId" name="movieId" value>
+
+            <button type="button" onclick="submitActor()">Add Actor</button>
+        </form>
+
+        <script>
+        async function submitActor() {
+            const name = document.querySelector('#name').value;
+            const age = document.querySelector('#age').value;
+            const country = document.querySelector('#country').value;
+            const movieId = document.querySelector('#movieId').value;
+        
+            try {
+                const response = await fetch('http://localhost:5000/actors', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        "age": age,
+                        "name": name,
+                        "country": country,
+                        "movieID": movieId
+                    })
+                });
+        
+                if (response.ok) {
+                    const result = await response.json();
+                    console.log('Actor added successfully:', result);
+                    // Redirect or provide feedback to the user
+                    window.location.href = `/movies${movieId}`; // might bw wrong cus coma xwar
+                } else {
+                    const error = await response.json();
+                    console.error('Failed to add actor:', error.error);
+                    alert('Failed to add actor: ' + error.error);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error adding actor');
+            }
+        }
+
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const movieId = urlParams.get('movieId');
+            document.querySelector('#movieId').value = movieId;
+        };
+    </script>
+    </body>
+</html>
