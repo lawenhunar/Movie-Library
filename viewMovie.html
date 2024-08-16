@@ -8,7 +8,7 @@
             rel="stylesheet"
             integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
             crossorigin="anonymous">
-        <link rel="stylesheet" href="assets/style.css">
+        <link rel="stylesheet" href="/assets/style.css">
         <title>Movie Details</title>
     </head>
     <body>
@@ -42,5 +42,55 @@
                 style="border-top: 5px solid #DDA0DD ;opacity: 100%; border-radius: 20px; margin-left: 5%;
         margin-right: 5%;" />
         </div>
+
+        <div id="post">
+        </div>
+
+        <h4>Comments:</h4>
+        <figure>
+            <blockquote class="blockquote">
+                <p>Such an amazing movie!!</p>
+            </blockquote>
+            <figcaption class="blockquote-footer">
+                Lawen
+            </figcaption>
+        </figure>
+
+        <script>
+            function getMovieIdFromUrl() {
+                const url = new URL(window.location.href);
+                return url.pathname.split('/').pop(); 
+            }
+
+            addEventListener("load",(event)=>{
+                showEdit()
+            })
+
+            movieId=getMovieIdFromUrl();
+            async function showEdit(){
+                const response=await fetch(`http://localhost:5000/movieDetail/${movieId}`)
+                const movies= await response.json()
+                console.log(movies)
+
+                for(const movie of movies){
+                    document.querySelector('#post').innerHTML=` 
+                    <div class="card text-center mb-3 box"
+                        style="width: 18rem; height: 17rem">
+                        <div class="card-body">
+                            <h3>${movie.Title}</h3>
+                            <h5 class="card-title">${movie.Description}</h5>
+                            <p class="card-text">${movie.ReleaseYear}</p>
+                            <p class="card-text" >Genre: ${movie.Genre}</p>
+                            <p class="card-text" >${movie.Directors}</p>
+
+                            <a href="/edit-movies/${movie.MovieID}" style="position:absolute; bottom:20px;right:20px">
+                                <i class="fa-solid fa-pen"></i>
+                            </a>          
+                        </div>
+                    </div>
+                    `
+                }
+            }
+        </script>
     </body>
 </html>

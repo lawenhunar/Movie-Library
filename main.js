@@ -115,6 +115,21 @@ app.get('/view-movie/:id', (req,res)=>{
     res.sendFile(path.join(__dirname,'viewMovie.html'))
 })
 
+//add :id here if needed
+app.get('/movieDetail/:id',(req,res)=>{
+    console.log(req.body);
+    db.all(
+        `
+        SELECT * FROM Movies
+        WHERE MovieID = ${req.params.id}
+        `
+        ,
+        (error,rows)=>{
+            console.log(rows);
+            res.send(rows)
+    })
+    
+})
 
 //movie database query
 app.get('/movies',(req,res)=>{
