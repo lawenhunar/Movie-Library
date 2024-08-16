@@ -84,7 +84,8 @@
                 Library</button>
         </form>
 
-        <h2>Comments</h2>
+        <!-- on hold!! -->
+        <!-- <h2>Comments</h2>
         <ul id="comments-list"></ul>
 
         <h2>Add a Comment</h2>
@@ -94,7 +95,7 @@
             <textarea id="comment-text" placeholder="Your comment"
                 required></textarea>
             <button type="submit">Add Comment</button>
-        </form>
+        </form> -->
 
         <script>
             function getMovieIdFromUrl() {
@@ -114,7 +115,7 @@
                 console.log(title)
                 console.log(directors)
 
-                const response=await fetch(`http://localhost:5000/movies/${movieID}`,{
+                const response=await fetch(`http://localhost:5000/edit-movies/${movieID}`,{
                     method:'PUT',
                     headers:{'content-type':'application/json'},
                     body:JSON.stringify( {
@@ -129,7 +130,7 @@
 
             async function deleteMovie() {
                 movieID=getMovieIdFromUrl();
-                const response=await fetch(`http://localhost:5000/movies/${movieID}`, {
+                const response=await fetch(`http://localhost:5000/edit-movies/${movieID}`, {
                     method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/json'
@@ -137,8 +138,6 @@
                 });
                 window.location.href = '/'; // Adjust the URL to your home page
             }
-            //fix the button
-
         </script>
     </body>
 </html>

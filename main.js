@@ -36,6 +36,7 @@ app.post('/movies',(req,res)=>{
     )
 })
 
+//we wont use this for now
 app.post('/movies/:id/add-actor', (req, res) => {
 
     // SQL query to insert the actor with the associated movie ID
@@ -66,7 +67,7 @@ app.post('/movies/:id/add-actor', (req, res) => {
 
 
 
-app.put('/movies/:id', (req, res) => {
+app.put('/edit-movies/:id', (req, res) => {
     const movieId = req.params.id;
     const { title, description, releaseYear, genre, directors } = req.body;
     
@@ -88,7 +89,7 @@ app.put('/movies/:id', (req, res) => {
     });
 });
 
-app.delete('/movies/:id',(req,res)=>{
+app.delete('/edit-movies/:id',(req,res)=>{
     db.run(`
         DELETE FROM Movies WHERE MovieID = ${req.params.id}
         `),
@@ -106,13 +107,13 @@ app.get('/add-movie',(req,res)=>{
     res.sendFile(path.join(__dirname,'add-movie.html'))
 })
 
-app.get('/movies/:id/add-actor',(req,res)=>{
-    res.sendFile(path.join(__dirname,'add-actor.html'))
-})
-
-app.get('/movies/:id', (req, res) => {
-    res.sendFile(path.join(__dirname,'movie-details.html'))
+app.get('/edit-movies/:id', (req, res) => {
+    res.sendFile(path.join(__dirname,'editMoviePage.html'))
 });
+
+app.get('/view-movie/:id', (req,res)=>{
+    res.sendFile(path.join(__dirname,'viewMovie.html'))
+})
 
 
 //movie database query
