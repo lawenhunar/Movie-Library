@@ -44,6 +44,7 @@
             margin-right: 5%;" />
         </div>
 
+        <h3>Edit Movie:</h3>
         <form>
             <div class="mb-3">
                 <label for="TitleField" class="form-label">Movie
@@ -75,7 +76,7 @@
             <button onclick="updateMovie()" type="submit"
                 class="btn btn-primary">Confirm Edits</button>
 
-            <button type="button" class="btn btn-danger"
+            <button onclick="deleteMovie()" type="button" class="btn btn-danger"
                 style="position: absolute; right: 10px;">Remove From
                 Library</button>
         </form>
@@ -89,16 +90,17 @@
             <textarea id="comment-text" placeholder="Your comment"
                 required></textarea>
             <button type="submit">Add Comment</button>
-            <!-- this on click might be wrong -->
         </form>
 
         <script>
             function getMovieIdFromUrl() {
                 const url = new URL(window.location.href);
-                return url.pathname.split('/').pop(); // Extracts the last segment of the URL
+                return url.pathname.split('/').pop(); 
             }
+            
             async function updateMovie(){
                 movieID=getMovieIdFromUrl();
+
                 const title=document.querySelector('#TitleField').value; 
                 const description=document.querySelector('#DescriptionField').value;
                 const releaseYear=document.querySelector('#ReleaseYearField').value;
@@ -119,6 +121,17 @@
                         "Directors": directors
                     })
                 })
+            }
+
+            async function deleteMovie() {
+                movieID=getMovieIdFromUrl();
+                const response=await fetch(`http://localhost:5000/movies/${movieID}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                window.location.href = '/'; // Adjust the URL to your home page
             }
         </script>
     </body>

@@ -59,6 +59,12 @@ app.put('/movies/:id', (req, res) => {
     });
 });
 
+app.delete('/movies/:id',(req,res)=>{
+    db.run(`
+        DELETE FROM Movies WHERE MovieID = ${req.params.id}
+        `),
+        res.send("deleted")
+})
 
 
 
