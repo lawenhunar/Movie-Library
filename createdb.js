@@ -11,20 +11,28 @@ db.run(
         Genre TEXT,
         Directors TEXT
     );
-
-    CREATE TABLE Actors (
+    `
+)
+    
+db.run(`
+    CREATE TABLE IF NOT EXISTS Actors (
         ActorID INTEGER PRIMARY KEY AUTOINCREMENT,
-        Name TEXT NOT NULL,
+        Name TEXT,
         Age INTEGER,
-        Country TEXT
-    );
-
-    CREATE TABLE MovieActors (
+        Country TEXT,
         MovieID INTEGER,
-        ActorID INTEGER,
-        PRIMARY KEY (MovieID, ActorID),
-        FOREIGN KEY (MovieID) REFERENCES Movies(MovieID),
-        FOREIGN KEY (ActorID) REFERENCES Actors(ActorID)
+        FOREIGN KEY (MovieID) REFERENCES Movies(MovieID)
     );
     `
+)
+
+db.run(`
+    CREATE TABLE IF NOT EXISTS Comments (
+        CommentID INTEGER PRIMARY KEY AUTOINCREMENT,
+        MovieID INTEGER NOT NULL,
+        UserName TEXT NOT NULL,
+        CommentText TEXT NOT NULL,
+        FOREIGN KEY (MovieID) REFERENCES Movies(MovieID)
+    );
+`
 )

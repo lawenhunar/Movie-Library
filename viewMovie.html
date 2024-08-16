@@ -9,13 +9,8 @@
             integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
             crossorigin="anonymous">
         <link rel="stylesheet" href="/assets/style.css">
-        <link rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-            integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-            crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <title>Movie Library</title>
+        <title>Movie Details</title>
     </head>
-
     <body>
         <div
             style="background-color: #87CEFA; border-radius: 0px 0px 20px 20px;">
@@ -26,12 +21,12 @@
                         id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link disabled"
-                                    aria-disabled="true">Home</a>
+                                <a class="nav-link active"
+                                    href="/">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page"
-                                    href="add-movie">Add Movie</a>
+                                <a class="nav-link active"
+                                    href="/add-movie">Add Movie</a>
                             </li>
                         </ul>
                         <form class="d-flex" role="search">
@@ -43,44 +38,67 @@
                     </div>
                 </div>
             </nav>
-
             <hr
                 style="border-top: 5px solid #DDA0DD ;opacity: 100%; border-radius: 20px; margin-left: 5%;
-            margin-right: 5%;" />
+        margin-right: 5%;" />
         </div>
-        <h5>Movies:</h5>
-        <i class="bi bi-pencil"></i>
 
-        <div class="container text-center" id="posts">
-            <script>
+        <div class="card" id="post">
+        </div>
+
+        <h4>Write a Comment:</h4>
+        <div class="mb-3">
+            <label for="nameField" class="form-label">Name</label>
+            <input type="text" class="form-control"
+                id="nameField">
+        </div>
+        <div class="mb-3">
+            <label for="commentField" class="form-label">Comment</label>
+            <textarea class="form-control" id="commentField"
+                rows="3"></textarea>
+        </div>
+
+        Commments:
+        <figure>
+            <blockquote class="blockquote">
+                <p>Such an amazing movie!!</p>
+            </blockquote>
+            <figcaption class="blockquote-footer">
+                Lawen
+            </figcaption>
+        </figure>
+
+        <script>
+            function getMovieIdFromUrl() {
+                const url = new URL(window.location.href);
+                return url.pathname.split('/').pop(); 
+            }
+
             addEventListener("load",(event)=>{
                 showEdit()
             })
 
+            movieId=getMovieIdFromUrl();
             async function showEdit(){
-                const response=await fetch('http://localhost:5000/movies')
+                const response=await fetch(`http://localhost:5000/movieDetail/${movieId}`)
                 const movies= await response.json()
                 console.log(movies)
 
                 for(const movie of movies){
-                    document.querySelector('#posts').innerHTML+=` 
-                    <div class="card text-center mb-3 box"
-                        style="width: 18rem; height: 17rem">
-                        <div class="card-body">
-                            <h5 class="card-title">${movie.Title}</h5>
-                            <p class="card-text">${movie.Description}</p>
-                            <p class="card-text" >Genre: ${movie.Genre}</p>
+                    document.querySelector('#post').innerHTML=` 
+                        <div style="margin-left:20px">
+                            <h2>${movie.Title}</h2>
+                            <h5 class="card-text">Description: ${movie.Description}</h5>
+                            <p class="card-text">Genre: ${movie.Genre}</p>
+                            <p class="card-text">Release year: ${movie.ReleaseYear}</p>
+                            <p class="card-text">Directors: ${movie.Directors}</p>
                             <a href="/edit-movies/${movie.MovieID}" style="position:absolute; bottom:20px;right:20px">
                                 <i class="fa-solid fa-pen"></i>
                             </a>
-                            <a href="/view-movie/${movie.MovieID}" class="btn btn-primary" 
-                            style="position:absolute; bottom:20px; left: 50%;
-                            transform: translateX(-50%);">Movie details</a>                        
                         </div>
-                    </div>
                     `
                 }
             }
         </script>
-        </body>
-    </html>
+    </body>
+</html>

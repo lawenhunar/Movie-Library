@@ -12,7 +12,6 @@ app.use(express.json())
 const port=5000
 
 app.post('/movies',(req,res)=>{
-    // console.log(req.body);
     db.run(
         `
         INSERT INTO Movies
@@ -35,9 +34,74 @@ app.post('/movies',(req,res)=>{
             res.send('Done!! movie was added')
         }
     )
-    // res.send("gaisht")
 })
 
+
+app.put('/edit-movies/:id', (req, res) => {
+    const movieId = req.params.id;
+    const { title, description, releaseYear, genre, directors } = req.body;
+    
+    // Update query
+    db.run(
+        `UPDATE Movies 
+        SET Title = "${req.body.Title}", 
+        Description = "${req.body.Description}", 
+        ReleaseYear = ${req.body.ReleaseYear}, 
+        Genre = "${req.body.Genre}", 
+        Directors = "${req.body.Directors}"
+        WHERE MovieID = ${req.params.id}`
+
+        ,function (err) {
+            if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+        res.json({ message: 'Movie updated successfully', changes: this.changes });
+    });
+});
+
+app.delete('/edit-movies/:id',(req,res)=>{
+    db.run(`
+        DELETE FROM Movies WHERE MovieID = ${req.params.id}
+        `),
+        res.send("deleted")
+})
+
+
+
+//all the gets r here
+app.get('/',(req,res)=>{
+    res.sendFile(path.join(__dirname,'index.html'))
+})
+
+app.get('/add-movie',(req,res)=>{
+    res.sendFile(path.join(__dirname,'add-movie.html'))
+})
+
+app.get('/edit-movies/:id', (req, res) => {
+    res.sendFile(path.join(__dirname,'editMoviePage.html'))
+});
+
+app.get('/view-movie/:id', (req,res)=>{
+    res.sendFile(path.join(__dirname,'viewMovie.html'))
+})
+
+//add :id here if needed
+app.get('/movieDetail/:id',(req,res)=>{
+    console.log(req.body);
+    db.all(
+        `
+        SELECT * FROM Movies
+        WHERE MovieID = ${req.params.id}
+        `
+        ,
+        (error,rows)=>{
+            console.log(rows);
+            res.send(rows)
+    })
+    
+})
+
+//movie database query
 app.get('/movies',(req,res)=>{
     console.log(req.body);
     db.all(
@@ -49,17 +113,23 @@ app.get('/movies',(req,res)=>{
             console.log(rows);
             res.send(rows)
     })
-
+    
 })
 
-app.get('/',(req,res)=>{
-    res.sendFile(path.join(__dirname,'index.html'))
+//this is to test u can remove later
+app.get('/actorsAll',(req,res)=>{
+    console.log(req.body);
+    db.all(
+        `
+        SELECT * FROM Actors
+        `
+        ,
+        (error,rows)=>{
+            console.log(rows);
+            res.send(rows)
+    })
+    
 })
-
-app.get('/add-movie',(req,res)=>{
-    res.sendFile(path.join(__dirname,'add-movie.html'))
-})
-
 
 app.listen(port,()=>{
     console.log(`port listening on port ${port}`)
