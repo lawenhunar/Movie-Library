@@ -36,6 +36,28 @@ app.post('/movies',(req,res)=>{
     )
 })
 
+app.post('/add-actor/:id',(req,res)=>{
+    db.run(
+        `
+        INSERT INTO Actors
+        (
+            Name,
+            Age,
+            Country,
+            MovieID
+        )
+        VALUES
+        (
+            "${req.body.Name}",
+            ${req.body.Age},
+            "${req.body.Country}",
+            ${req.params.id}
+        )
+        `,()=>{
+            res.send('Done!! Actor was added')
+        }
+    )
+})
 
 app.put('/edit-movies/:id', (req, res) => {
     const movieId = req.params.id;
@@ -49,8 +71,8 @@ app.put('/edit-movies/:id', (req, res) => {
         ReleaseYear = ${req.body.ReleaseYear}, 
         Genre = "${req.body.Genre}", 
         Directors = "${req.body.Directors}"
-        WHERE MovieID = ${req.params.id}`
-
+        WHERE MovieID = ${req.params.id}
+        `
         ,function (err) {
             if (err) {
             return res.status(500).json({ error: err.message });
@@ -61,7 +83,7 @@ app.put('/edit-movies/:id', (req, res) => {
 
 app.delete('/edit-movies/:id',(req,res)=>{
     db.run(`
-        DELETE FROM Movies WHERE MovieID = ${req.params.id}
+            DELETE FROM Movies WHERE MovieID = ${req.params.id}
         `),
         res.send("deleted")
 })
@@ -85,7 +107,6 @@ app.get('/view-movie/:id', (req,res)=>{
     res.sendFile(path.join(__dirname,'viewMovie.html'))
 })
 
-//add :id here if needed
 app.get('/movieDetail/:id',(req,res)=>{
     console.log(req.body);
     db.all(
@@ -107,6 +128,21 @@ app.get('/movies',(req,res)=>{
     db.all(
         `
         SELECT * FROM Movies
+        `
+        ,
+        (error,rows)=>{
+            console.log(rows);
+            res.send(rows)
+    })
+    
+})
+
+app.get('/actor/:id',(req,res)=>{
+    console.log(req.body);
+    db.all(
+        `
+        SELECT * FROM Actors
+        WHERE MovieID = ${req.params.id}
         `
         ,
         (error,rows)=>{
