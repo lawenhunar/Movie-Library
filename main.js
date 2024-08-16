@@ -59,6 +59,27 @@ app.post('/add-actor/:id',(req,res)=>{
     )
 })
 
+app.post('/add-comment/:id',(req,res)=>{
+    db.run(
+        `
+        INSERT INTO Comments
+        (
+            MovieID,
+            UserName,
+            CommentText
+        )
+        VALUES
+        (
+            ${req.params.id},
+            "${req.body.UserName}",
+            "${req.body.CommentText}"
+        )
+        `,()=>{
+            res.send('Done!! Comment was added')
+        }
+    )
+})
+
 app.put('/edit-movies/:id', (req, res) => {
     const movieId = req.params.id;
     const { title, description, releaseYear, genre, directors } = req.body;
@@ -87,7 +108,6 @@ app.delete('/edit-movies/:id',(req,res)=>{
         `),
         res.send("deleted")
 })
-
 
 
 //all the gets r here
@@ -122,12 +142,42 @@ app.get('/movieDetail/:id',(req,res)=>{
     
 })
 
+app.get('/all-comments/:id',(req,res)=>{
+    console.log(req.body);
+    db.all(
+        `
+        SELECT * FROM Comments
+        WHERE MovieID= ${req.params.id}
+        `
+        ,
+        (error,rows)=>{
+            console.log(rows);
+            res.send(rows)
+    })
+    
+})
+
 //movie database query
 app.get('/movies',(req,res)=>{
     console.log(req.body);
     db.all(
         `
         SELECT * FROM Movies
+        `
+        ,
+        (error,rows)=>{
+            console.log(rows);
+            res.send(rows)
+    })
+    
+})
+
+//delete this
+app.get('/comment',(req,res)=>{
+    console.log(req.body);
+    db.all(
+        `
+        SELECT * FROM Comments
         `
         ,
         (error,rows)=>{
@@ -152,20 +202,6 @@ app.get('/actor/:id',(req,res)=>{
     
 })
 
-//this is to test u can remove later
-app.get('/actorsAll',(req,res)=>{
-    console.log(req.body);
-    db.all(
-        `
-        SELECT * FROM Actors
-        `
-        ,
-        (error,rows)=>{
-            console.log(rows);
-            res.send(rows)
-    })
-    
-})
 
 app.listen(port,()=>{
     console.log(`port listening on port ${port}`)
