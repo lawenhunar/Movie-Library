@@ -72,8 +72,12 @@
                     id="DirectorsField">
 
             </div>
-            <button onclick type="submit"
+            <button onclick="updateMovie()" type="submit"
                 class="btn btn-primary">Confirm Edits</button>
+
+            <button type="button" class="btn btn-danger"
+                style="position: absolute; right: 10px;">Remove From
+                Library</button>
         </form>
 
         <h2>Comments</h2>
@@ -85,64 +89,37 @@
             <textarea id="comment-text" placeholder="Your comment"
                 required></textarea>
             <button type="submit">Add Comment</button>
+            <!-- this on click might be wrong -->
         </form>
 
         <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                const movieDetailsDiv = document.getElementById('movie-details');
-                const commentsList = document.getElementById('comments-list');
-                const commentForm = document.getElementById('comment-form');
-            
-                // Extract movie ID from the URL
-                const movieId = window.location.pathname.split('/').pop();
-            
-                // Fetch movie details
-                fetch(`/api/movies/${movieId}`)
-                    .then(response => response.json())
-                    .then(movie => {
-                        movieDetailsDiv.innerHTML = `
-                            <h1>${movie.Title}</h1>
-                            <p>${movie.Description}</p>
-                            <p>Release Year: ${movie.ReleaseYear}</p>
-                            <p>Genre: ${movie.Genre}</p>
-                            <p>Directors: ${movie.Directors}</p>
-                        `;
-                    });
-            
-                // Fetch comments
-                fetch(`/api/movies/${movieId}/comments`)
-                    .then(response => response.json())
-                    .then(comments => {
-                        comments.forEach(comment => {
-                            const li = document.createElement('li');
-                            li.innerHTML = `<strong>${comment.UserName}:</strong> ${comment.CommentText}`;
-                            commentsList.appendChild(li);
-                        });
-                    });
-            
-                // Handle comment submission
-                commentForm.addEventListener('submit', function (e) {
-                    e.preventDefault();
-            
-                    const username = document.getElementById('username').value;
-                    const commentText = document.getElementById('comment-text').value;
-            
-                    fetch(`/api/movies/${movieId}/comments`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ username, comment: commentText })
+            function getMovieIdFromUrl() {
+                const url = new URL(window.location.href);
+                return url.pathname.split('/').pop(); // Extracts the last segment of the URL
+            }
+            async function updateMovie(){
+                movieID=getMovieIdFromUrl();
+                const title=document.querySelector('#TitleField').value; 
+                const description=document.querySelector('#DescriptionField').value;
+                const releaseYear=document.querySelector('#ReleaseYearField').value;
+                const genre=document.querySelector('#GenreField').value;
+                const directors=document.querySelector('#DirectorsField').value;
+
+                console.log(title)
+                console.log(directors)
+
+                const response=await fetch(`http://localhost:5000/movies/${movieID}`,{
+                    method:'PUT',
+                    headers:{'content-type':'application/json'},
+                    body:JSON.stringify( {
+                        "Title": title,
+                        "Description": description,
+                        "ReleaseYear": releaseYear,
+                        "Genre": genre,
+                        "Directors": directors
                     })
-                        .then(response => response.json())
-                        .then(comment => {
-                            const li = document.createElement('li');
-                            li.innerHTML = `<strong>${comment.UserName}:</strong> ${comment.CommentText}`;
-                            commentsList.appendChild(li);
-                            commentForm.reset();
-                        });
-                });
-            });
+                })
+            }
         </script>
     </body>
 </html>
