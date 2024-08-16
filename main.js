@@ -12,7 +12,6 @@ app.use(express.json())
 const port=5000
 
 app.post('/movies',(req,res)=>{
-    // console.log(req.body);
     db.run(
         `
         INSERT INTO Movies
@@ -35,7 +34,6 @@ app.post('/movies',(req,res)=>{
             res.send('Done!! movie was added')
         }
     )
-    // res.send("gaisht")
 })
 
 app.get('/movies',(req,res)=>{
@@ -55,11 +53,6 @@ app.get('/movies',(req,res)=>{
 app.get('/movies/:id', (req, res) => {
     res.sendFile(path.join(__dirname,'movie-details.html'))
 });
-
-
-///
-
-
 
 // Add comment API
 app.post('/movies/:id/comments', (req, res) => {
@@ -117,15 +110,6 @@ app.get('/test1',(req,res)=>{
     })
     
 });
-
-
-
-
-
-
-
-
-///
 
 
 app.get('/',(req,res)=>{
