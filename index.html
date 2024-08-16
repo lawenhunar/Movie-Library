@@ -8,7 +8,6 @@
             rel="stylesheet"
             integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
             crossorigin="anonymous">
-
         <link rel="stylesheet" href="assets/style.css">
         <title>Movie Library</title>
     </head>
@@ -69,7 +68,7 @@
                             <h5 class="card-title">${movie.Title}</h5>
                             <p class="card-text">${movie.Description}</p>
                             <p class="card-text" >Genre: ${movie.Genre}</p>
-                            <a href="#" class="btn btn-primary" style="position:absolute; bottom:10px; left: 50%;
+                            <a href="/movies/${movie.MovieID}" class="btn btn-primary" style="position:absolute; bottom:10px; left: 50%;
                             transform: translateX(-50%);">Movie details</a>
                         </div>
                     </div>

@@ -26,5 +26,14 @@ db.run(
         FOREIGN KEY (MovieID) REFERENCES Movies(MovieID),
         FOREIGN KEY (ActorID) REFERENCES Actors(ActorID)
     );
+
+    CREATE TABLE Comments (
+        CommentID INTEGER PRIMARY KEY AUTOINCREMENT,
+        MovieID INTEGER NOT NULL,
+        UserName TEXT NOT NULL,
+        CommentText TEXT NOT NULL,
+        FOREIGN KEY (MovieID) REFERENCES Movies(MovieID)
+    );
     `
+
 )
