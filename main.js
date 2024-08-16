@@ -36,36 +36,6 @@ app.post('/movies',(req,res)=>{
     )
 })
 
-//we wont use this for now
-app.post('/movies/:id/add-actor', (req, res) => {
-
-    // SQL query to insert the actor with the associated movie ID
-
-    db.run(
-        `
-        INSERT INTO Actors
-        (
-            Name, 
-            Age, 
-            Country, 
-            MovieID
-        ) 
-        VALUES 
-        (
-        "${req.body.Name}", 
-        ${req.body.Age}, 
-        "${req.body.Country}", 
-        ${req.params.id})`,
-        function (err) {
-            if (err) {
-                return res.status(500).json({ error: err.message });
-            }
-        res.json({ message: 'Actor added successfully', actorId: this.lastID });
-    });
-});
-
-
-
 
 app.put('/edit-movies/:id', (req, res) => {
     const movieId = req.params.id;
