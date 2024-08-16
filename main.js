@@ -36,6 +36,35 @@ app.post('/movies',(req,res)=>{
     )
 })
 
+app.post('/movies/:id/add-actor', (req, res) => {
+
+    // SQL query to insert the actor with the associated movie ID
+
+    db.run(
+        `
+        INSERT INTO Actors
+        (
+            Name, 
+            Age, 
+            Country, 
+            MovieID
+        ) 
+        VALUES 
+        (
+        "${req.body.Name}", 
+        ${req.body.Age}, 
+        "${req.body.Country}", 
+        ${req.params.id})`,
+        function (err) {
+            if (err) {
+                return res.status(500).json({ error: err.message });
+            }
+        res.json({ message: 'Actor added successfully', actorId: this.lastID });
+    });
+});
+
+
+
 
 app.put('/movies/:id', (req, res) => {
     const movieId = req.params.id;
@@ -92,6 +121,21 @@ app.get('/movies',(req,res)=>{
     db.all(
         `
         SELECT * FROM Movies
+        `
+        ,
+        (error,rows)=>{
+            console.log(rows);
+            res.send(rows)
+    })
+    
+})
+
+//this is to test u can remove later
+app.get('/actorsAll',(req,res)=>{
+    console.log(req.body);
+    db.all(
+        `
+        SELECT * FROM Actors
         `
         ,
         (error,rows)=>{

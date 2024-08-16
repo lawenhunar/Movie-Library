@@ -71,15 +71,15 @@
                     class="form-label">Directors:</label>
                 <input type="text" class="form-control"
                     id="DirectorsField">
-                <a href="/moadd-actor" class="btn btn-primary"
-                    style="position:absolute; bottom:10px; left: 50%;
-                            transform: translateX(-50%);">Add actor</a>
+
+                <button id="addActorButton">add actor</button>
 
             </div>
             <button onclick="updateMovie()" type="submit"
                 class="btn btn-primary">Confirm Edits</button>
 
-            <button onclick="deleteMovie()" type="button" class="btn btn-danger"
+            <button onclick="deleteMovie()" type="button"
+                class="btn btn-danger"
                 style="position: absolute; right: 10px;">Remove From
                 Library</button>
         </form>
@@ -89,7 +89,8 @@
 
         <h2>Add a Comment</h2>
         <form id="comment-form">
-            <input type="text" id="username" placeholder="Your name" required>
+            <input type="text" id="username" placeholder="Your name"
+                required>
             <textarea id="comment-text" placeholder="Your comment"
                 required></textarea>
             <button type="submit">Add Comment</button>
@@ -136,6 +137,8 @@
                 });
                 window.location.href = '/'; // Adjust the URL to your home page
             }
+            //fix the button
+
         </script>
     </body>
 </html>
