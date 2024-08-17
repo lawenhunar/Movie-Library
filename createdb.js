@@ -3,7 +3,7 @@ db= new sqlite3.Database('database.db')
 
 db.run(
     `
-    CREATE TABLE Movies (
+    CREATE TABLE IF NOT EXISTS Movies (
         MovieID INTEGER PRIMARY KEY AUTOINCREMENT,
         Title TEXT NOT NULL,
         Description TEXT,
@@ -36,3 +36,8 @@ db.run(`
     );
 `
 )
+
+db.run(`
+    ALTER TABLE Movies
+    ADD COLUMN LikeNumber INTEGER NOT NULL DEFAULT 0;
+    `)

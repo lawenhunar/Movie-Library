@@ -72,8 +72,6 @@
                 <input type="text" class="form-control"
                     id="DirectorsField">
 
-                <button id="addActorButton">add actor</button>
-
             </div>
             <button onclick="updateMovie()" type="submit"
                 class="btn btn-primary">Confirm Edits</button>
@@ -83,6 +81,27 @@
                 style="position: absolute; right: 10px;">Remove From
                 Library</button>
         </form>
+
+        <form style="margin-top: 50px;">
+            <h3>Add actor's information:</h3>
+            <div class="mb-3">
+                <label for="ActorName" class="form-label">Name:</label>
+                <input type="text" class="form-control"
+                    id="ActorName">
+
+                <label for="ActorAge" class="form-label">Age:</label>
+                <input type="number" class="form-control"
+                    id="ActorAge">
+
+                <label for="ActorCountry" class="form-label">Country of
+                    birth:</label>
+                <input type="text" class="form-control"
+                    id="ActorCountry">
+
+            </div>
+        </form>
+        <button onclick="addActor()" type="submit"
+            class="btn btn-primary">Add actor</button>
 
         <script>
             function getMovieIdFromUrl() {
@@ -113,6 +132,26 @@
                         "Directors": directors
                     })
                 })
+            }
+
+            async function addActor(){
+                movieID=getMovieIdFromUrl();
+
+                //fix these to property of actors and make fields
+                const actorName=document.querySelector('#ActorName').value; 
+                const actorAge=document.querySelector('#ActorAge').value;
+                const actorCountry=document.querySelector('#ActorCountry').value;
+                const response=await fetch(`http://localhost:5000/add-actor/${movieID}`,{
+                    method:'POST',
+                    headers:{'content-type':'application/json'},
+                    body:JSON.stringify( {
+                        "Name": actorName,
+                        "Age": actorAge,
+                        "Country": actorCountry,
+                        "MovieID": movieID
+                    })
+                })
+                window.location.href = `/view-movie/${movieID}`;
             }
 
             async function deleteMovie() {
