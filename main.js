@@ -1,17 +1,17 @@
 const express = require("express");
-const path=require('path')
-const sqlite3=require('sqlite3');
-const cors=require('cors')
+const path = require('path')
+const sqlite3 = require('sqlite3');
+const cors = require('cors')
 
-db= new sqlite3.Database('database.db')
-const app=express()
+db = new sqlite3.Database('database.db')
+const app = express()
 
 app.use(cors())
 app.use(express.json())
 
-const port=5000
+const port = 5000
 
-app.post('/movies',(req,res)=>{
+app.post('/movies', (req, res) => {
     db.run(
         `
         INSERT INTO Movies
@@ -30,13 +30,13 @@ app.post('/movies',(req,res)=>{
             "${req.body.Genre}",
             "${req.body.Directors}"
         )
-        `,()=>{
-            res.send('Done!! movie was added')
-        }
+        `, () => {
+        res.send('Done!! movie was added')
+    }
     )
 })
 
-app.post('/add-actor/:id',(req,res)=>{
+app.post('/add-actor/:id', (req, res) => {
     db.run(
         `
         INSERT INTO Actors
@@ -53,13 +53,13 @@ app.post('/add-actor/:id',(req,res)=>{
             "${req.body.Country}",
             ${req.params.id}
         )
-        `,()=>{
-            res.send('Done!! Actor was added')
-        }
+        `, () => {
+        res.send('Done!! Actor was added')
+    }
     )
 })
 
-app.post('/add-comment/:id',(req,res)=>{
+app.post('/add-comment/:id', (req, res) => {
     db.run(
         `
         INSERT INTO Comments
@@ -74,16 +74,16 @@ app.post('/add-comment/:id',(req,res)=>{
             "${req.body.UserName}",
             "${req.body.CommentText}"
         )
-        `,()=>{
-            res.send('Done!! Comment was added')
-        }
+        `, () => {
+        res.send('Done!! Comment was added')
+    }
     )
 })
 
 app.put('/edit-movies/:id', (req, res) => {
     const movieId = req.params.id;
     // const { title, description, releaseYear, genre, directors } = req.body;
-    
+
     // Update query
     db.run(
         `UPDATE Movies 
@@ -94,15 +94,15 @@ app.put('/edit-movies/:id', (req, res) => {
         Directors = "${req.body.Directors}"
         WHERE MovieID = ${req.params.id}
         `
-        ,function (err) {
+        , function (err) {
             if (err) {
-            return res.status(500).json({ error: err.message });
-        }
-        res.json({ message: 'Movie updated successfully', changes: this.changes });
-    });
+                return res.status(500).json({ error: err.message });
+            }
+            res.json({ message: 'Movie updated successfully', changes: this.changes });
+        });
 });
 
-app.put('/likeMovie/:id',(req,res)=>{
+app.put('/likeMovie/:id', (req, res) => {
     db.run(`
         UPDATE Movies
         SET LikeNumber = LikeNumber + 1
@@ -110,7 +110,7 @@ app.put('/likeMovie/:id',(req,res)=>{
     `)
 })
 
-app.delete('/edit-movies/:id',(req,res)=>{
+app.delete('/edit-movies/:id', (req, res) => {
     db.run(`
             DELETE FROM Movies WHERE MovieID = ${req.params.id}
         `),
@@ -119,23 +119,23 @@ app.delete('/edit-movies/:id',(req,res)=>{
 
 
 //all the gets r here
-app.get('/',(req,res)=>{
-    res.sendFile(path.join(__dirname,'index.html'))
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'))
 })
 
-app.get('/add-movie',(req,res)=>{
-    res.sendFile(path.join(__dirname,'add-movie.html'))
+app.get('/add-movie', (req, res) => {
+    res.sendFile(path.join(__dirname, 'add-movie.html'))
 })
 
 app.get('/edit-movies/:id', (req, res) => {
-    res.sendFile(path.join(__dirname,'editMoviePage.html'))
+    res.sendFile(path.join(__dirname, 'editMoviePage.html'))
 });
 
-app.get('/view-movie/:id', (req,res)=>{
-    res.sendFile(path.join(__dirname,'viewMovie.html'))
+app.get('/view-movie/:id', (req, res) => {
+    res.sendFile(path.join(__dirname, 'viewMovie.html'))
 })
 
-app.get('/movieDetail/:id',(req,res)=>{
+app.get('/movieDetail/:id', (req, res) => {
     console.log(req.body);
     db.all(
         `
@@ -143,14 +143,14 @@ app.get('/movieDetail/:id',(req,res)=>{
         WHERE MovieID = ${req.params.id}
         `
         ,
-        (error,rows)=>{
+        (error, rows) => {
             console.log(rows);
             res.send(rows)
-    })
-    
+        })
+
 })
 
-app.get('/all-comments/:id',(req,res)=>{
+app.get('/all-comments/:id', (req, res) => {
     console.log(req.body);
     db.all(
         `
@@ -158,26 +158,26 @@ app.get('/all-comments/:id',(req,res)=>{
         WHERE MovieID= ${req.params.id}
         `
         ,
-        (error,rows)=>{
+        (error, rows) => {
             console.log(rows);
             res.send(rows)
-    })
-    
+        })
+
 })
 
 //movie database query
-app.get('/movies',(req,res)=>{
+app.get('/movies', (req, res) => {
     console.log(req.body);
     db.all(
         `
         SELECT * FROM Movies
         `
         ,
-        (error,rows)=>{
+        (error, rows) => {
             console.log(rows);
             res.send(rows)
-    })
-    
+        })
+
 })
 
 //remove for now
@@ -193,10 +193,10 @@ app.get('/movies',(req,res)=>{
 //             console.log(rows);
 //             res.send(rows)
 //     })
-    
+
 // })
 
-app.get('/actor/:id',(req,res)=>{
+app.get('/actor/:id', (req, res) => {
     console.log(req.body);
     db.all(
         `
@@ -204,14 +204,14 @@ app.get('/actor/:id',(req,res)=>{
         WHERE MovieID = ${req.params.id}
         `
         ,
-        (error,rows)=>{
+        (error, rows) => {
             console.log(rows);
             res.send(rows)
-    })
-    
+        })
+
 })
 
-app.get('/movies/:name',(req,res)=>{
+app.get('/movies/:name', (req, res) => {
     console.log(req.body);
     db.all(
         `
@@ -219,17 +219,17 @@ app.get('/movies/:name',(req,res)=>{
         WHERE Title LIKE '%${req.params.name}%'
         `
         ,
-        (error,rows)=>{
+        (error, rows) => {
             console.log(rows);
             res.send(rows)
-    })
-    
+        })
+
 })
 
 
 
 
-app.listen(port,()=>{
+app.listen(port, () => {
     console.log(`port listening on port ${port}`)
 })
 
