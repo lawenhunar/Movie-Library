@@ -82,7 +82,7 @@ app.post('/add-comment/:id',(req,res)=>{
 
 app.put('/edit-movies/:id', (req, res) => {
     const movieId = req.params.id;
-    const { title, description, releaseYear, genre, directors } = req.body;
+    // const { title, description, releaseYear, genre, directors } = req.body;
     
     // Update query
     db.run(
@@ -101,6 +101,14 @@ app.put('/edit-movies/:id', (req, res) => {
         res.json({ message: 'Movie updated successfully', changes: this.changes });
     });
 });
+
+app.put('/likeMovie/:id',(req,res)=>{
+    db.run(`
+        UPDATE Movies
+        SET LikeNumber = LikeNumber + 1
+        WHERE MovieID = ${req.params.id};
+    `)
+})
 
 app.delete('/edit-movies/:id',(req,res)=>{
     db.run(`
