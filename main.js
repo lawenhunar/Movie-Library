@@ -172,20 +172,6 @@ app.get('/movies',(req,res)=>{
     
 })
 
-//delete this
-app.get('/comment',(req,res)=>{
-    console.log(req.body);
-    db.all(
-        `
-        SELECT * FROM Comments
-        `
-        ,
-        (error,rows)=>{
-            console.log(rows);
-            res.send(rows)
-    })
-    
-})
 
 app.get('/actor/:id',(req,res)=>{
     console.log(req.body);
@@ -201,6 +187,23 @@ app.get('/actor/:id',(req,res)=>{
     })
     
 })
+
+app.get('/movies/:name',(req,res)=>{
+    console.log(req.body);
+    db.all(
+        `
+        SELECT * FROM Movies
+        WHERE Title LIKE '%${req.params.name}%'
+        `
+        ,
+        (error,rows)=>{
+            console.log(rows);
+            res.send(rows)
+    })
+    
+})
+
+
 
 
 app.listen(port,()=>{
