@@ -3,13 +3,14 @@ db= new sqlite3.Database('database.db')
 
 db.run(
     `
-    CREATE TABLE Movies (
+    CREATE TABLE IF NOT EXISTS Movies (
         MovieID INTEGER PRIMARY KEY AUTOINCREMENT,
         Title TEXT NOT NULL,
         Description TEXT,
         ReleaseYear INTEGER,
         Genre TEXT,
         Directors TEXT
+        LikeNumber INTEGER NOT NULL DEFAULT 0
     );
     `
 )
