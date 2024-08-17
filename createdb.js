@@ -10,7 +10,6 @@ db.run(
         ReleaseYear INTEGER,
         Genre TEXT,
         Directors TEXT
-        LikeNumber INTEGER NOT NULL DEFAULT 0
     );
     `
 )
@@ -37,3 +36,8 @@ db.run(`
     );
 `
 )
+
+db.run(`
+    ALTER TABLE Movies
+    ADD COLUMN LikeNumber INTEGER NOT NULL DEFAULT 0;
+    `)
