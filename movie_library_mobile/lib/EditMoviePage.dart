@@ -47,8 +47,7 @@ class _EditMoviePageState extends State<EditMoviePage> {
       }),
     );
     if (response.statusCode == 200) {
-      Navigator.pop(
-          context, true); // Return to the previous page with a success result
+      Navigator.pop(context, true);
     }
   }
 

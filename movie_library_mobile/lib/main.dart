@@ -104,9 +104,6 @@ class _MovieHomePageState extends State<MovieHomePage> {
     final response = await http.delete(
       Uri.parse('http://10.0.2.2:5000/edit-movies/$movieId'),
     );
-    if (response.statusCode == 200) {
-      fetchMovies();
-    }
   }
 
   void navigateToEditMovie(
@@ -118,9 +115,6 @@ class _MovieHomePageState extends State<MovieHomePage> {
             EditMoviePage(movieId: movieId, movieDetails: movieDetails),
       ),
     );
-    if (result == true) {
-      fetchMovies();
-    }
   }
 
   void navigateToMovieDetails(int movieId) {
