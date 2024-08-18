@@ -9,7 +9,7 @@
             integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
             crossorigin="anonymous">
         <link rel="stylesheet" href="/assets/style.css">
-        <title>Movie Details</title>
+        <title>Edit Movie</title>
     </head>
 
     <body>
@@ -22,62 +22,45 @@
                         id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link active"
-                                    href="/">Home</a>
+                                <a class="nav-link active" href="/">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active"
-                                    href="/add-movie">Add Movie</a>
+                                <a class="nav-link active" href="/add-movie">Add
+                                    Movie</a>
                             </li>
                         </ul>
-                        <form class="d-flex" role="search">
-                            <input class="form-control me-2" type="search"
-                                placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-success"
-                                type="submit">Search</button>
-                        </form>
                     </div>
                 </div>
             </nav>
             <hr
-                style="border-top: 5px solid #DDA0DD ;opacity: 100%; border-radius: 20px; margin-left: 5%;
-            margin-right: 5%;" />
+                style="border-top: 5px solid #DDA0DD; opacity: 100%; border-radius: 20px; margin-left: 5%; margin-right: 5%;" />
         </div>
 
         <h3>Edit Movie:</h3>
-        <form>
+        <form id="editField">
             <div class="mb-3">
-                <label for="TitleField" class="form-label">Movie
-                    Title:</label>
-                <input type="text" class="form-control"
-                    id="TitleField">
+                <label for="TitleField" class="form-label">Movie Title:</label>
+                <input type="text" class="form-control" id="TitleField">
 
                 <label for="DescriptionField"
                     class="form-label">Description:</label>
-                <textarea class="form-control"
-                    id="DescriptionField" rows="3"></textarea>
+                <textarea class="form-control" id="DescriptionField"
+                    rows="3"></textarea>
 
-                <label for="ReleaseYearField"
-                    class="form-label">Released on:</label>
-                <input type="number" class="form-control"
-                    id="ReleaseYearField">
+                <label for="ReleaseYearField" class="form-label">Released
+                    on:</label>
+                <input type="number" class="form-control" id="ReleaseYearField">
 
-                <label for="GenreField"
-                    class="form-label">Genre:</label>
-                <input type="text" class="form-control"
-                    id="GenreField">
+                <label for="GenreField" class="form-label">Genre:</label>
+                <input type="text" class="form-control" id="GenreField">
 
                 <label for="DirectorsField"
                     class="form-label">Directors:</label>
-                <input type="text" class="form-control"
-                    id="DirectorsField">
-
+                <input type="text" class="form-control" id="DirectorsField">
             </div>
             <button onclick="updateMovie()" type="submit"
                 class="btn btn-primary">Confirm Edits</button>
-
-            <button onclick="deleteMovie()" type="button"
-                class="btn btn-danger"
+            <button onclick="deleteMovie()" type="button" class="btn btn-danger"
                 style="position: absolute; right: 10px;">Remove From
                 Library</button>
         </form>
@@ -86,83 +69,87 @@
             <h3>Add actor's information:</h3>
             <div class="mb-3">
                 <label for="ActorName" class="form-label">Name:</label>
-                <input type="text" class="form-control"
-                    id="ActorName">
+                <input type="text" class="form-control" id="ActorName">
 
                 <label for="ActorAge" class="form-label">Age:</label>
-                <input type="number" class="form-control"
-                    id="ActorAge">
+                <input type="number" class="form-control" id="ActorAge">
 
                 <label for="ActorCountry" class="form-label">Country of
                     birth:</label>
-                <input type="text" class="form-control"
-                    id="ActorCountry">
-
+                <input type="text" class="form-control" id="ActorCountry">
             </div>
+            <button onclick="addActor()" type="submit"
+                class="btn btn-primary">Add actor</button>
         </form>
-        <button onclick="addActor()" type="submit"
-            class="btn btn-primary">Add actor</button>
 
         <script>
+            addEventListener("load", (event) => {
+                getDetail();
+            });
+
             function getMovieIdFromUrl() {
                 const url = new URL(window.location.href);
                 return url.pathname.split('/').pop(); 
             }
             
-            async function updateMovie(){
-                movieID=getMovieIdFromUrl();
+            const movieID = getMovieIdFromUrl();
 
-                const title=document.querySelector('#TitleField').value; 
-                const description=document.querySelector('#DescriptionField').value;
-                const releaseYear=document.querySelector('#ReleaseYearField').value;
-                const genre=document.querySelector('#GenreField').value;
-                const directors=document.querySelector('#DirectorsField').value;
+            async function updateMovie() {
+                const title = document.querySelector('#TitleField').value; 
+                const description = document.querySelector('#DescriptionField').value;
+                const releaseYear = document.querySelector('#ReleaseYearField').value;
+                const genre = document.querySelector('#GenreField').value;
+                const directors = document.querySelector('#DirectorsField').value;
 
-                console.log(title)
-                console.log(directors)
-
-                const response=await fetch(`http://localhost:5000/edit-movies/${movieID}`,{
-                    method:'PUT',
-                    headers:{'content-type':'application/json'},
-                    body:JSON.stringify( {
-                        "Title": title,
-                        "Description": description,
-                        "ReleaseYear": releaseYear,
-                        "Genre": genre,
-                        "Directors": directors
+                const response = await fetch(`http://localhost:5000/edit-movies/${movieID}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        Title: title,
+                        Description: description,
+                        ReleaseYear: releaseYear,
+                        Genre: genre,
+                        Directors: directors
                     })
-                })
+                });
             }
 
-            async function addActor(){
-                movieID=getMovieIdFromUrl();
+            async function addActor() {
+                const actorName = document.querySelector('#ActorName').value; 
+                const actorAge = document.querySelector('#ActorAge').value;
+                const actorCountry = document.querySelector('#ActorCountry').value;
 
-                //fix these to property of actors and make fields
-                const actorName=document.querySelector('#ActorName').value; 
-                const actorAge=document.querySelector('#ActorAge').value;
-                const actorCountry=document.querySelector('#ActorCountry').value;
-                const response=await fetch(`http://localhost:5000/add-actor/${movieID}`,{
-                    method:'POST',
-                    headers:{'content-type':'application/json'},
-                    body:JSON.stringify( {
-                        "Name": actorName,
-                        "Age": actorAge,
-                        "Country": actorCountry,
-                        "MovieID": movieID
+                const response = await fetch(`http://localhost:5000/add-actor/${movieID}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        Name: actorName,
+                        Age: actorAge,
+                        Country: actorCountry,
+                        MovieID: movieID
                     })
-                })
+                });
                 window.location.href = `/view-movie/${movieID}`;
             }
 
             async function deleteMovie() {
-                movieID=getMovieIdFromUrl();
-                const response=await fetch(`http://localhost:5000/edit-movies/${movieID}`, {
+                const response = await fetch(`http://localhost:5000/edit-movies/${movieID}`, {
                     method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
+                    headers: { 'Content-Type': 'application/json' }
                 });
                 window.location.href = '/'; // Adjust the URL to your home page
+            }
+
+            async function getDetail() {
+                const response = await fetch(`http://localhost:5000/movieDetail/${movieID}`);
+                const movies = await response.json();
+                for(movie of movies){
+                    document.querySelector('#TitleField').value = movie.Title;
+                    document.querySelector('#DescriptionField').value = movie.Description;
+                    document.querySelector('#ReleaseYearField').value = movie.ReleaseYear;
+                    document.querySelector('#GenreField').value = movie.Genre;
+                    document.querySelector('#DirectorsField').value = movie.Directors;
+                }
             }
         </script>
     </body>
