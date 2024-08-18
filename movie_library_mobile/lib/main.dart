@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
-import 'AddMoviePage.dart'; 
+import 'AddMoviePage.dart';
 import 'EditMoviePage.dart';
+import 'ViewMovie.dart';
 
 import 'package:http/http.dart' as http;
 
@@ -78,9 +79,6 @@ class _MovieHomePageState extends State<MovieHomePage> {
         'Country': 'USA',
       }),
     );
-    if (response.statusCode == 200) {
-      print('Actor added');
-    }
   }
 
   void addComment(int movieId, String userName, String commentText) async {
@@ -94,18 +92,12 @@ class _MovieHomePageState extends State<MovieHomePage> {
         'CommentText': commentText,
       }),
     );
-    if (response.statusCode == 200) {
-      print('Comment added');
-    }
   }
 
   void likeMovie(int movieId) async {
     final response = await http.put(
       Uri.parse('http://10.0.2.2:5000/likeMovie/$movieId'),
     );
-    if (response.statusCode == 200) {
-      print('Movie liked');
-    }
   }
 
   void deleteMovie(int movieId) async {
@@ -117,16 +109,27 @@ class _MovieHomePageState extends State<MovieHomePage> {
     }
   }
 
-  void navigateToEditMovie(int movieId, Map<String, dynamic> movieDetails) async {
+  void navigateToEditMovie(
+      int movieId, Map<String, dynamic> movieDetails) async {
     final result = await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => EditMoviePage(movieId: movieId, movieDetails: movieDetails),
+        builder: (context) =>
+            EditMoviePage(movieId: movieId, movieDetails: movieDetails),
       ),
     );
     if (result == true) {
-      fetchMovies(); // Refresh movie list after returning from EditMoviePage
+      fetchMovies();
     }
+  }
+
+  void navigateToMovieDetails(int movieId) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => MovieDetailPage(movieId: movieId),
+      ),
+    );
   }
 
   @override
@@ -134,7 +137,9 @@ class _MovieHomePageState extends State<MovieHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Movie Library'),
+        backgroundColor: Color.fromARGB(255, 173, 223, 255),
       ),
+      backgroundColor: const Color.fromARGB(255, 225, 246, 255),
       body: ListView.builder(
         itemCount: movies.length,
         itemBuilder: (context, index) {
@@ -145,8 +150,14 @@ class _MovieHomePageState extends State<MovieHomePage> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 IconButton(
+                  icon: Icon(Icons.visibility),
+                  onPressed: () =>
+                      navigateToMovieDetails(movies[index]['MovieID']),
+                ),
+                IconButton(
                   icon: Icon(Icons.edit),
-                  onPressed: () => navigateToEditMovie(movies[index]['MovieID'], movies[index]),
+                  onPressed: () => navigateToEditMovie(
+                      movies[index]['MovieID'], movies[index]),
                 ),
                 IconButton(
                   icon: Icon(Icons.thumb_up),
@@ -167,7 +178,7 @@ class _MovieHomePageState extends State<MovieHomePage> {
             context,
             MaterialPageRoute(builder: (context) => AddMoviePage()),
           ).then((value) {
-            fetchMovies(); // Refresh movie list after returning from AddMoviePage
+            fetchMovies();
           });
         },
         child: Icon(Icons.add),

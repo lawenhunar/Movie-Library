@@ -39,7 +39,9 @@ class _AddMoviePageState extends State<AddMoviePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Add New Movie'),
+        backgroundColor: Color.fromARGB(255, 173, 223, 255),
       ),
+      backgroundColor: const Color.fromARGB(255, 225, 246, 255),
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Form(

@@ -23,10 +23,13 @@ class _EditMoviePageState extends State<EditMoviePage> {
   void initState() {
     super.initState();
     titleController = TextEditingController(text: widget.movieDetails['Title']);
-    descriptionController = TextEditingController(text: widget.movieDetails['Description']);
-    releaseYearController = TextEditingController(text: widget.movieDetails['ReleaseYear'].toString());
+    descriptionController =
+        TextEditingController(text: widget.movieDetails['Description']);
+    releaseYearController = TextEditingController(
+        text: widget.movieDetails['ReleaseYear'].toString());
     genreController = TextEditingController(text: widget.movieDetails['Genre']);
-    directorsController = TextEditingController(text: widget.movieDetails['Directors']);
+    directorsController =
+        TextEditingController(text: widget.movieDetails['Directors']);
   }
 
   void editMovie() async {
@@ -44,7 +47,8 @@ class _EditMoviePageState extends State<EditMoviePage> {
       }),
     );
     if (response.statusCode == 200) {
-      Navigator.pop(context, true); // Return to the previous page with a success result
+      Navigator.pop(
+          context, true); // Return to the previous page with a success result
     }
   }
 
@@ -53,7 +57,9 @@ class _EditMoviePageState extends State<EditMoviePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Edit Movie'),
+        backgroundColor: Color.fromARGB(255, 173, 223, 255),
       ),
+      backgroundColor: const Color.fromARGB(255, 225, 246, 255),
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
@@ -140,7 +146,9 @@ class _AddActorPageState extends State<AddActorPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Add Actor'),
+        backgroundColor: Color.fromARGB(255, 173, 223, 255),
       ),
+      backgroundColor: const Color.fromARGB(255, 225, 246, 255),
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Form(
