@@ -30,6 +30,7 @@ class MovieHomePage extends StatefulWidget {
 
 class _MovieHomePageState extends State<MovieHomePage> {
   List movies = [];
+  TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
@@ -37,15 +38,19 @@ class _MovieHomePageState extends State<MovieHomePage> {
     fetchMovies();
   }
 
-  Future<void> fetchMovies() async {
+  void fetchMovies() async {
     final response = await http.get(Uri.parse('http://10.0.2.2:5000/movies'));
-    if (response.statusCode == 200) {
-      setState(() {
-        movies = json.decode(response.body);
-      });
-    } else {
-      throw Exception('Failed to load movies');
-    }
+    setState(() {
+      movies = json.decode(response.body);
+    });
+  }
+
+  void getSearchMovies(movieName) async {
+    final response =
+        await http.get(Uri.parse('http://10.0.2.2:5000/movies/$movieName'));
+    setState(() {
+      movies = json.decode(response.body);
+    });
   }
 
   void addMovie() async {
@@ -130,41 +135,65 @@ class _MovieHomePageState extends State<MovieHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Movie Library'),
+        title: Text('Movie Matrix'),
         backgroundColor: Color.fromARGB(255, 173, 223, 255),
       ),
       backgroundColor: const Color.fromARGB(255, 225, 246, 255),
-      body: ListView.builder(
-        itemCount: movies.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(movies[index]['Title']),
-            subtitle: Text(movies[index]['Description']),
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                IconButton(
-                  icon: Icon(Icons.visibility),
-                  onPressed: () =>
-                      navigateToMovieDetails(movies[index]['MovieID']),
+      body: Column(
+        children: [
+          // Search Bar
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              controller: _searchController,
+              decoration: InputDecoration(
+                labelText: 'Search Movies',
+                prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
                 ),
-                IconButton(
-                  icon: Icon(Icons.edit),
-                  onPressed: () => navigateToEditMovie(
-                      movies[index]['MovieID'], movies[index]),
-                ),
-                IconButton(
-                  icon: Icon(Icons.thumb_up),
-                  onPressed: () => likeMovie(movies[index]['MovieID']),
-                ),
-                IconButton(
-                  icon: Icon(Icons.delete),
-                  onPressed: () => deleteMovie(movies[index]['MovieID']),
-                ),
-              ],
+              ),
+              onSubmitted: (value) {
+                getSearchMovies(value);
+              },
             ),
-          );
-        },
+          ),
+          // Movie List
+          Expanded(
+            child: ListView.builder(
+              itemCount: movies.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(movies[index]['Title']),
+                  subtitle: Text(movies[index]['Description']),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.visibility),
+                        onPressed: () =>
+                            navigateToMovieDetails(movies[index]['MovieID']),
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.edit),
+                        onPressed: () => navigateToEditMovie(
+                            movies[index]['MovieID'], movies[index]),
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.thumb_up),
+                        onPressed: () => likeMovie(movies[index]['MovieID']),
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.delete),
+                        onPressed: () => deleteMovie(movies[index]['MovieID']),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
