@@ -15,9 +15,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Movie Library',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
       home: MovieHomePage(),
     );
   }
@@ -38,7 +35,7 @@ class _MovieHomePageState extends State<MovieHomePage> {
     fetchMovies();
   }
 
-  void fetchMovies() async {
+  Future<void> fetchMovies() async {
     final response = await http.get(Uri.parse('http://10.0.2.2:5000/movies'));
     setState(() {
       movies = json.decode(response.body);
@@ -141,7 +138,6 @@ class _MovieHomePageState extends State<MovieHomePage> {
       backgroundColor: const Color.fromARGB(255, 225, 246, 255),
       body: Column(
         children: [
-          // Search Bar
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
@@ -158,7 +154,6 @@ class _MovieHomePageState extends State<MovieHomePage> {
               },
             ),
           ),
-          // Movie List
           Expanded(
             child: ListView.builder(
               itemCount: movies.length,

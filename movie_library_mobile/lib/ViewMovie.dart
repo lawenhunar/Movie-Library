@@ -42,7 +42,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
         commentResponse.statusCode == 200) {
       setState(() {
         movieDetails =
-            jsonDecode(movieResponse.body)[0]; // Assuming single movie returned
+            jsonDecode(movieResponse.body)[0]; 
         actors = jsonDecode(actorResponse.body);
         comments = jsonDecode(commentResponse.body);
         isLoading = false;
