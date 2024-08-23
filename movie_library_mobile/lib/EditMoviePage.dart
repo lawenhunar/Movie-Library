@@ -136,7 +136,7 @@ class _AddActorPageState extends State<AddActorPage> {
       }),
     );
     if (response.statusCode == 200) {
-      Navigator.pop(context); // Return to the previous page
+      Navigator.pop(context);
     }
   }
 

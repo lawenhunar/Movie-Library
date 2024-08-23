@@ -30,7 +30,7 @@ class _AddMoviePageState extends State<AddMoviePage> {
       }),
     );
     if (response.statusCode == 200) {
-      Navigator.pop(context); // Return to the previous page
+      Navigator.pop(context);
     }
   }
 

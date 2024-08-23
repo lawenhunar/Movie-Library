@@ -180,22 +180,6 @@ app.get('/movies', (req, res) => {
 
 })
 
-//remove for now
-// app.get('/moviesLike/:id',(req,res)=>{
-//     console.log(req.body);
-//     db.all(
-//         `
-//         SELECT LikeNumber FROM Movies
-//         WHERE MovieID= ${req.params.id}
-//         `
-//         ,
-//         (error,rows)=>{
-//             console.log(rows);
-//             res.send(rows)
-//     })
-
-// })
-
 app.get('/actor/:id', (req, res) => {
     console.log(req.body);
     db.all(
