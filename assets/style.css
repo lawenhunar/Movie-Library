@@ -16,3 +16,17 @@ body{
     padding: 20px;
     text-align: center;
 }
+.card {
+    border-radius: 15px;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  }
+  
+  .card-body {
+    padding-bottom: 3rem; /* extra space for absolute edit icon */
+  }
+  

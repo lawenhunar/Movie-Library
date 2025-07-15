@@ -34,10 +34,10 @@
                                     href="add-movie">Add Movie</a>
                             </li>
                         </ul>
-                        <form>
-                            <input class="form-control me-2" type="text"
-                                id="searchBar">
-                        </form>
+                        <form onsubmit="searchMovie(); return false;">
+                            <input class="form-control me-2" type="text" id="searchBar" placeholder="Search...">
+                          </form>
+                          
                         <button class="btn btn-outline-primary"
                             onclick="searchMovie()"
                             type="submit">Search</button>
@@ -51,8 +51,10 @@
         </div>
         <h5>Movies:</h5>
 
-        <div class="container text-center" id="posts"></div>
-
+        <div class="container">
+            <div class="row justify-content-center" id="posts"></div>
+          </div>
+          
         <div class="container text-center" id="movieSearched"></div>
         <script>
             addEventListener("load",(event)=>{
@@ -67,23 +69,27 @@
                 document.querySelector('#posts').innerHTML=``
 
                 for(const movie of movies){
-                    document.querySelector('#posts').innerHTML+=` 
-                    <div class="card text-center mb-3 box"
-                        style="width: 30rem; height: 17rem">
-                        <div class="card-body">
-                            <h5 class="card-title">${movie.Title}</h5>
-                            <p class="card-text">${movie.Description}</p>
-                            <p class="card-text" >Genre: ${movie.Genre}</p>
+                    document.querySelector('#posts').innerHTML += `
+  <div class="col-md-4 mb-4">
+    <div class="card h-100 shadow-sm">
+      <div class="card-body d-flex flex-column position-relative">
+        <h5 class="card-title">${movie.Title}</h5>
+        <p class="card-text">${movie.Description}</p>
+        <p class="card-text"><small class="text-muted">Genre: ${movie.Genre}</small></p>
 
-                            <a href="/edit-movies/${movie.MovieID}" style="position:absolute; bottom:20px;right:20px">
-                                <i class="fa-solid fa-pen"></i>
-                            </a>
-                            <a href="/view-movie/${movie.MovieID}" class="btn btn-primary" 
-                            style="position:absolute; bottom:20px; left: 50%;
-                            transform: translateX(-50%);">Movie details</a>                        
-                        </div>
-                    </div>
-                    `
+        <a href="/view-movie/${movie.MovieID}" class="btn btn-primary mt-auto w-100">Movie details</a>
+
+       <div class="position-absolute top-0 end-0 m-2">
+  <a href="/edit-movies/${movie.MovieID}" class="btn btn-sm btn-outline-secondary rounded-circle">
+    <i class="fa-solid fa-pen"></i>
+  </a>
+</div>
+
+      </div>
+    </div>
+  </div>
+`;
+
                 }
             }
 
@@ -104,22 +110,27 @@
                 console.log(movies);  
                 document.querySelector('#posts').innerHTML=``
                 for(movie of movies){
-                    document.querySelector('#posts').innerHTML+=` 
-                    <div class="card text-center mb-3 box"
-                        style="width: 30rem; height: 17rem">
-                        <div class="card-body">
-                            <h5 class="card-title">${movie.Title}</h5>
-                            <p class="card-text">${movie.Description}</p>
-                            <p class="card-text" >Genre: ${movie.Genre}</p>
-                            <a href="/edit-movies/${movie.MovieID}" style="position:absolute; bottom:20px;right:20px">
-                                <i class="fa-solid fa-pen"></i>
-                            </a>
-                            <a href="/view-movie/${movie.MovieID}" class="btn btn-primary" 
-                            style="position:absolute; bottom:20px; left: 50%;
-                            transform: translateX(-50%);">Movie details</a>                        
-                        </div>
-                    </div>
-                    `
+                    document.querySelector('#posts').innerHTML += `
+  <div class="col-md-4 mb-4">
+    <div class="card h-100 shadow-sm">
+      <div class="card-body d-flex flex-column position-relative">
+        <h5 class="card-title">${movie.Title}</h5>
+        <p class="card-text">${movie.Description}</p>
+        <p class="card-text"><small class="text-muted">Genre: ${movie.Genre}</small></p>
+
+        <a href="/view-movie/${movie.MovieID}" class="btn btn-primary mt-auto w-100">Movie details</a>
+
+ <div class="position-absolute top-0 end-0 m-2">
+  <a href="/edit-movies/${movie.MovieID}" class="btn btn-sm btn-outline-secondary rounded-circle">
+    <i class="fa-solid fa-pen"></i>
+  </a>
+</div>
+
+      </div>
+    </div>
+  </div>
+`;
+
                 }
             }
         </script>
