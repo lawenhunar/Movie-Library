@@ -13,74 +13,102 @@
     </head>
 
     <body>
-        <div
-            style="background-color: #87CEFA; border-radius: 0px 0px 20px 20px;">
+        <header class="header-section">
             <h1 class="text-main">Movie Matrix</h1>
-            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <nav class="navbar navbar-expand-lg">
                 <div class="container-fluid">
-                    <div class="collapse navbar-collapse"
-                        id="navbarSupportedContent">
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link active" href="/">Home</a>
+                                <a class="nav-link" href="/">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="/add-movie">Add
-                                    Movie</a>
+                                <a class="nav-link" href="/add-movie">Add Movie</a>
                             </li>
                         </ul>
                     </div>
                 </div>
             </nav>
-            <hr
-                style="border-top: 5px solid #DDA0DD; opacity: 100%; border-radius: 20px; margin-left: 5%; margin-right: 5%;" />
-        </div>
+        </header>
 
-        <h3>Edit Movie:</h3>
-        <form id="editField">
-            <div class="mb-3">
-                <label for="TitleField" class="form-label">Movie Title:</label>
-                <input type="text" class="form-control" id="TitleField">
+        <main class="main-content">
+            <div class="form-container">
+                <h2 class="page-title">
+                    <i class="fas fa-edit me-2"></i>Edit Movie Details
+                </h2>
 
-                <label for="DescriptionField"
-                    class="form-label">Description:</label>
-                <textarea class="form-control" id="DescriptionField"
-                    rows="3"></textarea>
+                <form id="editField">
+                    <div class="mb-3">
+                        <label for="TitleField" class="form-label">
+                            <i class="fas fa-film me-2"></i>Movie Title:
+                        </label>
+                        <input type="text" class="form-control" id="TitleField" placeholder="Enter movie title...">
 
-                <label for="ReleaseYearField" class="form-label">Released
-                    on:</label>
-                <input type="number" class="form-control" id="ReleaseYearField">
+                        <label for="DescriptionField" class="form-label">
+                            <i class="fas fa-align-left me-2"></i>Description:
+                        </label>
+                        <textarea class="form-control" id="DescriptionField" rows="4" placeholder="Enter movie description..."></textarea>
 
-                <label for="GenreField" class="form-label">Genre:</label>
-                <input type="text" class="form-control" id="GenreField">
+                        <label for="ReleaseYearField" class="form-label">
+                            <i class="fas fa-calendar me-2"></i>Release Year:
+                        </label>
+                        <input type="number" class="form-control" id="ReleaseYearField" placeholder="e.g., 2023">
 
-                <label for="DirectorsField"
-                    class="form-label">Directors:</label>
-                <input type="text" class="form-control" id="DirectorsField">
+                        <label for="GenreField" class="form-label">
+                            <i class="fas fa-tag me-2"></i>Genre:
+                        </label>
+                        <input type="text" class="form-control" id="GenreField" placeholder="e.g., Action, Drama, Comedy">
+
+                        <label for="DirectorsField" class="form-label">
+                            <i class="fas fa-user-tie me-2"></i>Directors:
+                        </label>
+                        <input type="text" class="form-control" id="DirectorsField" placeholder="Enter director names...">
+                    </div>
+
+                    <div class="d-flex gap-2 justify-content-center">
+                        <button onclick="updateMovie()" type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-2"></i>Save Changes
+                        </button>
+                        <button onclick="deleteMovie()" type="button" class="btn btn-danger">
+                            <i class="fas fa-trash me-2"></i>Delete Movie
+                        </button>
+                    </div>
+                </form>
+
+                <hr class="my-4">
+
+                <div class="form-container" style="max-width: 500px;">
+                    <h3 class="mb-4">
+                        <i class="fas fa-user-plus me-2"></i>Add Cast Member
+                    </h3>
+
+                    <form>
+                        <div class="mb-3">
+                            <label for="ActorName" class="form-label">
+                                <i class="fas fa-user me-2"></i>Actor Name:
+                            </label>
+                            <input type="text" class="form-control" id="ActorName" placeholder="Enter actor name...">
+
+                            <label for="ActorAge" class="form-label">
+                                <i class="fas fa-birthday-cake me-2"></i>Age:
+                            </label>
+                            <input type="number" class="form-control" id="ActorAge" placeholder="Enter age...">
+
+                            <label for="ActorCountry" class="form-label">
+                                <i class="fas fa-globe me-2"></i>Country:
+                            </label>
+                            <input type="text" class="form-control" id="ActorCountry" placeholder="Enter country of birth...">
+                        </div>
+
+                        <div class="d-grid">
+                            <button onclick="addActor()" type="submit" class="btn btn-primary">
+                                <i class="fas fa-plus me-2"></i>Add Actor
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <button onclick="updateMovie()" type="submit"
-                class="btn btn-primary">Confirm Edits</button>
-            <button onclick="deleteMovie()" type="button" class="btn btn-danger"
-                style="position: absolute; right: 10px;">Remove From
-                Library</button>
-        </form>
-
-        <form style="margin-top: 50px;">
-            <h3>Add actor's information:</h3>
-            <div class="mb-3">
-                <label for="ActorName" class="form-label">Name:</label>
-                <input type="text" class="form-control" id="ActorName">
-
-                <label for="ActorAge" class="form-label">Age:</label>
-                <input type="number" class="form-control" id="ActorAge">
-
-                <label for="ActorCountry" class="form-label">Country of
-                    birth:</label>
-                <input type="text" class="form-control" id="ActorCountry">
-            </div>
-            <button onclick="addActor()" type="submit"
-                class="btn btn-primary">Add actor</button>
-        </form>
+        </main>
 
         <script>
             addEventListener("load", (event) => {
