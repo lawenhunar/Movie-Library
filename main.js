@@ -9,7 +9,7 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
-const port = 5000
+const port = 7000
 
 app.post('/movies', (req, res) => {
     db.run(
