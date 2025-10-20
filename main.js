@@ -2,6 +2,7 @@ const express = require("express");
 const path = require('path')
 const sqlite3 = require('sqlite3');
 const cors = require('cors')
+const { seedDatabase } = require('./seedData');
 
 db = new sqlite3.Database('database.db')
 const app = express()
@@ -9,7 +10,10 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
-const port = 7000
+// Seed database with sample data on startup
+seedDatabase();
+
+const port = process.env.PORT || 7000
 
 app.post('/movies', (req, res) => {
     db.run(
@@ -214,7 +218,8 @@ app.get('/movies/:name', (req, res) => {
 
 
 app.listen(port, () => {
-    console.log(`port listening on port ${port}`)
+    console.log(`🚀 Server running on port ${port}`);
+    console.log(`📱 Movie Library API is ready!`);
 })
 
 app.use("/assets", express.static(__dirname + "/assets"));
