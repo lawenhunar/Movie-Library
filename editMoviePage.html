@@ -129,7 +129,7 @@
                 const genre = document.querySelector('#GenreField').value;
                 const directors = document.querySelector('#DirectorsField').value;
 
-                const response = await fetch(`http://localhost:5000/edit-movies/${movieID}`, {
+                const response = await fetch(`http://localhost:${window.location.port || 5000}/edit-movies/${movieID}`, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -147,7 +147,7 @@
                 const actorAge = document.querySelector('#ActorAge').value;
                 const actorCountry = document.querySelector('#ActorCountry').value;
 
-                const response = await fetch(`http://localhost:5000/add-actor/${movieID}`, {
+                const response = await fetch(`http://localhost:${window.location.port || 5000}/add-actor/${movieID}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -161,7 +161,7 @@
             }
 
             async function deleteMovie() {
-                const response = await fetch(`http://localhost:5000/edit-movies/${movieID}`, {
+                const response = await fetch(`http://localhost:${window.location.port || 5000}/edit-movies/${movieID}`, {
                     method: 'DELETE',
                     headers: { 'Content-Type': 'application/json' }
                 });
@@ -169,7 +169,7 @@
             }
 
             async function getDetail() {
-                const response = await fetch(`http://localhost:5000/movieDetail/${movieID}`);
+                const response = await fetch(`http://localhost:${window.location.port || 5000}/movieDetail/${movieID}`);
                 const movies = await response.json();
                 for(movie of movies){
                     document.querySelector('#TitleField').value = movie.title;
