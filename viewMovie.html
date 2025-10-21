@@ -99,19 +99,19 @@
                     document.querySelector('#post').innerHTML=`
                         <div class="movie-info">
                             <h2 class="movie-title">
-                                <i class="fas fa-film me-2"></i>${movie.Title}
+                                <i class="fas fa-film me-2"></i>${movie.title}
                             </h2>
 
                             <div class="movie-meta">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <p><i class="fas fa-align-left me-2"></i><strong>Description:</strong></p>
-                                        <p>${movie.Description}</p>
+                                        <p>${movie.description}</p>
                                     </div>
                                     <div class="col-md-6">
-                                        <p><i class="fas fa-tag me-2"></i><strong>Genre:</strong> ${movie.Genre}</p>
-                                        <p><i class="fas fa-calendar me-2"></i><strong>Release Year:</strong> ${movie.ReleaseYear}</p>
-                                        <p><i class="fas fa-user-tie me-2"></i><strong>Director:</strong> ${movie.Directors}</p>
+                                        <p><i class="fas fa-tag me-2"></i><strong>Genre:</strong> ${movie.genre}</p>
+                                        <p><i class="fas fa-calendar me-2"></i><strong>Release Year:</strong> ${movie.releaseYear}</p>
+                                        <p><i class="fas fa-user-tie me-2"></i><strong>Director:</strong> ${movie.directors}</p>
                                     </div>
                                 </div>
                             </div>
@@ -119,7 +119,7 @@
                             <div class="like-section">
                                 <div class="d-flex align-items-center justify-content-center">
                                     <span class="me-3" id='likeCount'>
-                                        <i class="fas fa-heart me-1"></i>Likes: ${movie.LikeNumber}
+                                        <i class="fas fa-heart me-1"></i>Likes: ${movie.likeNumber}
                                     </span>
                                     <button class="like-btn" onclick="likeMovie()">
                                         <i class="fas fa-thumbs-up me-2"></i>Like Movie
@@ -128,7 +128,7 @@
                             </div>
 
                             <div class="text-end mt-3">
-                                <button class="edit-btn" onclick="window.location.href='/edit-movies/${movie.MovieID}'" title="Edit Movie">
+                                <button class="edit-btn" onclick="window.location.href='/edit-movies/${movie._id}'" title="Edit Movie">
                                     <i class="fas fa-edit"></i>
                                 </button>
                             </div>
@@ -149,9 +149,9 @@
                                 <i class="fas fa-user-circle fa-2x"></i>
                             </div>
                             <div>
-                                <h6 class="mb-1">${actor.Name}</h6>
-                                <p class="mb-1"><i class="fas fa-birthday-cake me-1"></i>Age: ${actor.Age}</p>
-                                <p class="mb-0"><i class="fas fa-globe me-1"></i>From: ${actor.Country}</p>
+                                <h6 class="mb-1">${actor.name}</h6>
+                                <p class="mb-1"><i class="fas fa-birthday-cake me-1"></i>Age: ${actor.age}</p>
+                                <p class="mb-0"><i class="fas fa-globe me-1"></i>From: ${actor.country}</p>
                             </div>
                         </div>
                     </div>
@@ -185,10 +185,10 @@
                     document.querySelector('#comments').innerHTML+=`
                     <div class="comment-card slide-up">
                         <blockquote class="blockquote mb-2">
-                            <p class="mb-0">${comment.CommentText}</p>
+                            <p class="mb-0">${comment.commentText}</p>
                         </blockquote>
                         <figcaption class="blockquote-footer mb-0">
-                            <i class="fas fa-user me-1"></i>${comment.UserName}
+                            <i class="fas fa-user me-1"></i>${comment.userName}
                         </figcaption>
                     </div>
                     `

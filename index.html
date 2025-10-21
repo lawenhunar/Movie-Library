@@ -69,15 +69,15 @@
   <div class="col-md-4 mb-4 fade-in">
     <div class="card movie-card h-100">
       <div class="card-body d-flex flex-column">
-        <h5 class="card-title">${movie.Title}</h5>
-        <p class="card-text">${movie.Description.length > 100 ? movie.Description.substring(0, 100) + '...' : movie.Description}</p>
-        <p class="card-text"><small class="text-muted"><i class="fas fa-tag me-1"></i>Genre: ${movie.Genre}</small></p>
+        <h5 class="card-title">${movie.title}</h5>
+        <p class="card-text">${movie.description.length > 100 ? movie.description.substring(0, 100) + '...' : movie.description}</p>
+        <p class="card-text"><small class="text-muted"><i class="fas fa-tag me-1"></i>Genre: ${movie.genre}</small></p>
 
-        <a href="/view-movie/${movie.MovieID}" class="btn btn-primary mt-auto">
+        <a href="/view-movie/${movie._id}" class="btn btn-primary mt-auto">
           <i class="fas fa-eye me-2"></i>Movie Details
         </a>
 
-        <button class="edit-btn" onclick="window.location.href='/edit-movies/${movie.MovieID}'" title="Edit Movie">
+        <button class="edit-btn" onclick="window.location.href='/edit-movies/${movie._id}'" title="Edit Movie">
           <i class="fas fa-edit"></i>
         </button>
       </div>
@@ -109,15 +109,15 @@
   <div class="col-md-4 mb-4 slide-up">
     <div class="card movie-card h-100">
       <div class="card-body d-flex flex-column">
-        <h5 class="card-title">${movie.Title}</h5>
-        <p class="card-text">${movie.Description.length > 100 ? movie.Description.substring(0, 100) + '...' : movie.Description}</p>
-        <p class="card-text"><small class="text-muted"><i class="fas fa-tag me-1"></i>Genre: ${movie.Genre}</small></p>
+        <h5 class="card-title">${movie.title}</h5>
+        <p class="card-text">${movie.description.length > 100 ? movie.description.substring(0, 100) + '...' : movie.description}</p>
+        <p class="card-text"><small class="text-muted"><i class="fas fa-tag me-1"></i>Genre: ${movie.genre}</small></p>
 
-        <a href="/view-movie/${movie.MovieID}" class="btn btn-primary mt-auto">
+        <a href="/view-movie/${movie._id}" class="btn btn-primary mt-auto">
           <i class="fas fa-eye me-2"></i>Movie Details
         </a>
 
-        <button class="edit-btn" onclick="window.location.href='/edit-movies/${movie.MovieID}'" title="Edit Movie">
+        <button class="edit-btn" onclick="window.location.href='/edit-movies/${movie._id}'" title="Edit Movie">
           <i class="fas fa-edit"></i>
         </button>
       </div>

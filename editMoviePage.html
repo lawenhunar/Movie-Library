@@ -172,11 +172,11 @@
                 const response = await fetch(`http://localhost:5000/movieDetail/${movieID}`);
                 const movies = await response.json();
                 for(movie of movies){
-                    document.querySelector('#TitleField').value = movie.Title;
-                    document.querySelector('#DescriptionField').value = movie.Description;
-                    document.querySelector('#ReleaseYearField').value = movie.ReleaseYear;
-                    document.querySelector('#GenreField').value = movie.Genre;
-                    document.querySelector('#DirectorsField').value = movie.Directors;
+                    document.querySelector('#TitleField').value = movie.title;
+                    document.querySelector('#DescriptionField').value = movie.description;
+                    document.querySelector('#ReleaseYearField').value = movie.releaseYear;
+                    document.querySelector('#GenreField').value = movie.genre;
+                    document.querySelector('#DirectorsField').value = movie.directors;
                 }
             }
         </script>
