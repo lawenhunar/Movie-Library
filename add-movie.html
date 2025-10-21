@@ -84,7 +84,7 @@
                 console.log(title)
                 console.log(directors)
 
-                const response=await fetch(`http://localhost:${window.location.port || 5000}/movies`,{
+                const response=await fetch('/movies',{
                     method:'POST',
                     headers:{'content-type':'application/json'},
                     body:JSON.stringify( {

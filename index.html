@@ -58,7 +58,7 @@
             })
 
             async function showMovies(){
-                const response=await fetch(`http://localhost:${window.location.port || 5000}/movies`)
+                const response=await fetch('/movies')
                 const movies= await response.json()
                 console.log(movies)
                 
@@ -94,7 +94,7 @@
                     showMovies()
                     return
                 }
-                const response=await fetch(`http://localhost:${window.location.port || 5000}/movies/${searchName}`);
+                const response=await fetch(`/movies/${searchName}`);
 
                 if (!response.ok) {
                     console.error("Failed to fetch movies");

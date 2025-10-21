@@ -91,7 +91,7 @@
 
             movieId=getMovieIdFromUrl();
             async function showDetail(){
-                const response=await fetch(`http://localhost:${window.location.port || 5000}/movieDetail/${movieId}`)
+                const response=await fetch(`/movieDetail/${movieId}`)
                 const movies= await response.json()
                 console.log(movies)
 
@@ -138,7 +138,7 @@
             }
 
             async function showActors(){
-                const response=await fetch(`http://localhost:${window.location.port || 5000}/actor/${movieId}`)
+                const response=await fetch(`/actor/${movieId}`)
                 const actors= await response.json()
 
                 for(const actor of actors){
@@ -163,7 +163,7 @@
             async function addComment(){
                 const commentName=document.querySelector('#nameField').value; 
                 const commentText=document.querySelector('#commentField').value;
-                const response=await fetch(`http://localhost:${window.location.port || 5000}/add-comment/${movieId}`,{
+                const response=await fetch(`/add-comment/${movieId}`,{
                     method:'POST',
                     headers:{'content-type':'application/json'},
                     body:JSON.stringify( {
@@ -178,7 +178,7 @@
             }
 
             async function showComment(){
-                const response=await fetch(`http://localhost:${window.location.port || 5000}/all-comments/${movieId}`)
+                const response=await fetch(`/all-comments/${movieId}`)
                 const comments= await response.json()
 
                 for(const comment of comments){
@@ -198,7 +198,7 @@
             async function likeMovie(){
                 movieID=getMovieIdFromUrl();
 
-                const response=await fetch(`http://localhost:${window.location.port || 5000}/likeMovie/${movieID}`,{
+                const response=await fetch(`/likeMovie/${movieID}`,{
                     method:'PUT',
                     headers:{'content-type':'application/json'},
                 })
